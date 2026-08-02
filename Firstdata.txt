@@ -1,0 +1,10 @@
+Wei 1 75.5
+Ming 2 55.0
+Liang 3 82.0
+Xia 4 48.5
+Mei 5 91.0
+Jun 6 60.5
+Lan 7 33.0
+Hua 8 70.0
+Qiang 9 61.5
+Ying 10 45.0
