@@ -77,22 +77,42 @@ public:
 			});// to sort the students vector by score using a lambda function as a custom comparator
 		cout << "Student Sorted by score . " << endl;
 	}
+	void searchById(int id) const {
+		auto it = find_if(students.begin(), students.end(),
+			[id](const auto& student) {
+				return get<1>(student) == id;
+			});
+
+		if (it != students.end()) {
+			cout << "\nStudent found:" << endl;
+			cout << "Name: " << get<0>(*it) << endl;
+			cout << "ID: " << get<1>(*it) << endl;
+			cout << "Score: " << get<2>(*it) << endl;
+		}
+		else {
+			cout << "\nStudent with ID " << id
+				<< " was not found." << endl;
+		}
+	}
 };
 
 int main() {
-	GradeBook& GradeBook = GradeBook::getInstance();//is a reference to the same object,get the one &only instance object 
+	GradeBook& gradeBook = GradeBook::getInstance();
 
-	GradeBook.LoadFromFile("Firstdata.txt");
-	GradeBook.print();
+	gradeBook.LoadFromFile("Firstdata.txt");
+	gradeBook.print();
 
-	GradeBook.add("Mei", 5, 91.0);
-	GradeBook.print();
+	gradeBook.add("Mei", 5, 91.0);
+	gradeBook.print();
 
-	GradeBook.deleteStudent(2);
-	GradeBook.print();
+	gradeBook.deleteStudent(2);
+	gradeBook.print();
 
-	GradeBook.sortByScore();
-	GradeBook.print();
+	gradeBook.sortByScore();
+	gradeBook.print();
+
+	cout << "\n--- Search Student ---" << endl;
+	gradeBook.searchById(3);
 
 	return 0;
 }
