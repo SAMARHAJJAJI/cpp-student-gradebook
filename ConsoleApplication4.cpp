@@ -10,6 +10,12 @@ class GradeBook {
 private:
 
 	vector<tuple<string, int, double >> students;
+	void printStudent(const tuple<string, int, double>& student) const {
+    cout << "\nStudent found:" << endl;
+    cout << "Name: " << get<0>(student) << endl;
+    cout << "ID: " << get<1>(student) << endl;
+    cout << "Score: " << get<2>(student) << endl;
+}
 	GradeBook() {} // we make a protected  private contructed to prevent the creating other objects 
 	GradeBook(const GradeBook&) = delete;//to delete the coppy constructor to prevent coppying again of the object 
 	GradeBook& operator = (const GradeBook&) = delete; //to delete the assignment operator to prevent coppying again of the object
@@ -84,18 +90,30 @@ public:
 			});
 
 		if (it != students.end()) {
-			cout << "\nStudent found:" << endl;
-			cout << "Name: " << get<0>(*it) << endl;
-			cout << "ID: " << get<1>(*it) << endl;
-			cout << "Score: " << get<2>(*it) << endl;
+    printStudent(*it);
+}
 		}
 		else {
 			cout << "\nStudent with ID " << id
 				<< " was not found." << endl;
 		}
 	}
-};
 
+    void searchByName(const string& name) const {
+        auto it = find_if(students.begin(), students.end(),
+             [&name](const auto& student) {
+                return get<0>(student) == name;
+        });
+
+    if (it != students.end()) {
+        printStudent(*it);
+    }
+    else {
+        cout << "\nStudent with name " << name
+             << " was not found." << endl;
+    }
+}
+};
 int main() {
 	GradeBook& gradeBook = GradeBook::getInstance();
 
@@ -113,7 +131,7 @@ int main() {
 
 	cout << "\n--- Search Student ---" << endl;
 	gradeBook.searchById(3);
-
+    gradeBook.searchByName("Mei");
 	return 0;
 }
 	
